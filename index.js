@@ -1,120 +1,86 @@
-var express = require("express");
-var app = express();
-var bodyParser = require('body-parser')
+const webServer = require('./services/web-server.js');
+const database = require('./services/database.js');
+const dbConfig = require('./config/database.js');
+const defaultThreadPoolSize = 4;
 
-const logingStatus = {
-	LOGED: 'SUCCESS',
-	ERROR: 'ERROR'
-}
+// Increase thread pool size by poolMax
+process.env.UV_THREADPOOL_SIZE = dbConfig.hrPool.poolMax + defaultThreadPoolSize;
 
-const oracledb = require('oracledb');
-
-async function run() {
-
-  let connection;
+async function startup() {
+  console.log('Starting application');
 
   try {
-    connection = await oracledb.getConnection(  {
-      user          : "hr",
-      password      : "Epiph0n31!1",
-      connectString : "localhost/hw18"
-    });
+    console.log('Initializing database module');
 
-    const result = await connection.execute(
-      `SELECT manager_id, department_id, department_name
-       FROM departments
-       WHERE manager_id = :id`,
-      [103],  // bind value for :id
-    );
-    console.log(result.rows);
-
+    await database.initialize();
   } catch (err) {
     console.error(err);
-  } finally {
-    if (connection) {
-      try {
-        await connection.close();
-      } catch (err) {
-        console.error(err);
-      }
-    }
+
+    process.exit(1); // Non-zero failure code
+  }
+
+  try {
+    console.log('Initializing web server module');
+
+    await webServer.initialize();
+  } catch (err) {
+    console.error(err);
+
+    process.exit(1); // Non-zero failure code
   }
 }
 
-run();
+startup();
 
-oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
+async function shutdown(e) {
+  let err = e;
 
-app.use(express.static('image'));
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
+  console.log('Shutting down application');
 
-app.post('/login', function(req, res, next) {
-	var request = req.body;
-	var login = request.login;
-	var password = request.password
-	if ( login && password) {
-		if ( password == "haslo" ){
-			res.json({
-				'status': logingStatus.LOGED,
-				'userId': 1,
-				'degree': 'tytul',
-				'name': 'imie',
-				'surname': 'nazwisko',
-				'position': 'pozycja',
-				'phone': '606707808',
-				'image': 'a.jpg'
-			});
-		} else {
-			res.json({
-				'status': logingStatus.ERROR
-			})
-		}
-	} else {
-		res.json({
-			'status': logingStatus.ERROR
-		});
-	}
-	
+  try {
+    console.log('Closing web server module');
+
+    await webServer.close();
+  } catch (e) {
+    console.error(e);
+
+    err = err || e;
+  }
+
+  try {
+    console.log('Closing database module');
+
+    await database.close();
+  } catch (e) {
+    console.error(e);
+
+    err = err || e;
+  }
+
+  console.log('Exiting process');
+
+  if (err) {
+    process.exit(1); // Non-zero failure code
+  } else {
+    process.exit(0);
+  }
+}
+
+process.on('SIGTERM', () => {
+  console.log('Received SIGTERM');
+
+  shutdown();
 });
 
-app.get('/publications/:idAccount', function(req, res, next) {
-	var login = req.params.idAccount;
-	res.json([
-			{
-		'idPublication': 1,
-		'idAuthor': 1,
-		'tile': 'tytul1',
-		'date': 'imie1',
-		'ISBN': 'nazwisko1',
-		'place': 'pozycja1',
-	},
-	{
-		'idPublication': 2,
-		'idAuthor': 1,
-		'tile': 'tytul2',
-		'date': 'imie2',
-		'ISBN': 'nazwisko2',
-		'place': 'pozycja2',
-	},
-	{
-		'idPublication': 3,
-		'idAuthor': 1,
-		'tile': 'tytul3',
-		'date': 'imie3',
-		'ISBN': 'nazwisko3',
-		'place': 'pozycja3',
-	},
-	{
-		'idPublication': 4,
-		'idAuthor': 1,
-		'tile': 'tytul4',
-		'date': 'imie4',
-		'ISBN': 'nazwisko4',
-		'place': 'pozycja4',
-	}]);
+process.on('SIGINT', () => {
+  console.log('Received SIGINT');
+
+  shutdown();
 });
 
-app.listen(3000, () => {
- console.log("Server running on port 3000");
+process.on('uncaughtException', err => {
+  console.log('Uncaught exception');
+  console.error(err);
+
+  shutdown(err);
 });
