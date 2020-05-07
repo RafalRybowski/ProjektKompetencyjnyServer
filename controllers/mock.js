@@ -56,6 +56,7 @@ module.exports.publications = publications;
 
 async function login(req, res, next) {
    res.status(200).json({
+        "status": "SUCCESS",
         'userId': 1,
         'degree': 'tytul',
         'name': 'imie',
