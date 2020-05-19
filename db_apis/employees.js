@@ -21,7 +21,7 @@ async function find(context) {
   if (context.id) {
     binds.employee_id = context.id;
 
-    query += `\nwhere employee_id = :employee_id`;
+    query += `\nwhere employees.employee_id = :employee_id`;
   }
 
   const result = await database.simpleExecute(query, binds);
