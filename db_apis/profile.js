@@ -8,7 +8,6 @@ function toLower(string){
 async function find(req){
     let query = baseQuery;
     const binds = {};
-	const result;
 	console.log('profile db_apis context = '+req.session.ID_KONTA);
     if(req.session.ID_KONTA){
 			binds.Login = req.session.ID_KONTA;
