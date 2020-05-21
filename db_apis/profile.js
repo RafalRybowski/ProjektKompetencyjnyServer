@@ -5,13 +5,14 @@ function toLower(string){
 	return string.toLowerCase();
 }
 	
-async function find(context){
+async function find(req){
     let query = baseQuery;
     const binds = {};
-	console.log('profile db_apis context = '+context);
-    if(context){
-			binds.Login = context;
-            query += `KONTO.ID_KONTA = :Login`;
+	const result;
+	console.log('profile db_apis context = '+req.session.ID_KONTA);
+    if(req.session.ID_KONTA){
+			binds.Login = req.session.ID_KONTA;
+            query += `KONTO.ID_KONTA = :Login`; 
         }
     
     const result = await database.simpleExecute(query, binds);

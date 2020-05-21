@@ -9,16 +9,19 @@ async function post(req, res, next){
 		
 		//console.log(context.login);
 		//console.log(context.haslo);
-		const rows = await login.find(context);
+		const ID = await login.find(context);
 		if (context.login) {
-			if (rows) {
+			if (ID) {
 				req.session.loggedin = true;
-				req.session.ID_KONTA = rows;
+				req.session.ID_KONTA = ID;
 				console.log(req.session.ID_KONTA);
-				res.redirect('/profile/:req');
+				//res.redirect('/profile/:req');
 			} else {
 				res.status(404).end();
 			}
+		}
+		if(req.session.loggedin == true){
+			res.status(200).json(req.session.ID_KONTA);
 		}
 	} catch (err) {
 		next(err);
