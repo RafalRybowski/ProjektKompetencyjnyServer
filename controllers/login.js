@@ -9,7 +9,8 @@ async function post(req, res, next){
 		
         const ID = await login.find(context);
         if (context.login && context.password) {
-            if (ID) {
+			console.log('ID= '+ID);
+            if (ID != -1) {
                 req.session.loggedin = true;
                 req.session.ID_KONTA = ID;
                 console.log(req.session.ID_KONTA);
