@@ -6,6 +6,7 @@ async function get(req, res, next) {
     const context = {};
 
     context.id = parseInt(req.params.id, 10);
+	console.log(context.id);
 
     const rows = await employees.find(context);
 

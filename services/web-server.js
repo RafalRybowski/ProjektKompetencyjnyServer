@@ -2,6 +2,7 @@ const http = require('http');
 const express = require('express');
 const webServerConfig = require('../config/web-server.js');
 const router = require('./router.js');
+const bodyParser = require('body-parser')
 
 let httpServer;
 
@@ -11,10 +12,12 @@ function initialize() {
     httpServer = http.createServer(app);
 
     // Combines logging info from request and response
+    app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(bodyParser.json())
 
     // Mount the router at /api so all its routes start with /api
     app.use('/', router);
-
+    
     httpServer.listen(webServerConfig.port)
       .on('listening', () => {
         console.log(`Web server listening on localhost:${webServerConfig.port}`);
