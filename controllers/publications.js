@@ -6,14 +6,14 @@ async function get(req, res, next){
 		if(req.session.ID_KONTA){
 			console.log('profile controllers context = '+Object.values(req.session.ID_KONTA));	
 			const rows = await profile.find(req);
-			if (rows != null) {
+			if (rows) {
 				if (rows.length != 1) {
 					res.status(404).end();
 				}
 			}
 			const rowProfile = rows[0];
 			const rowsPub = await profilePub.find(req);
-			if (rowsPub != null){
+			if (rowsPub){
 				let obj = {rowProfile, rowsPub};
 				res.status(200).json(obj);
 			}
