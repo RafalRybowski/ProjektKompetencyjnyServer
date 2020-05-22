@@ -19,7 +19,7 @@ async function find(context){
         
     const result = await database.simpleExecute(query, binds);
 	if(result.rows[0] == null){
-		return -1;
+		return null;
 	}
     return result.rows[0];
 }
