@@ -1,41 +1,55 @@
 --------------------------------------------------------
---  File created - poniedzia³ek-maja-18-2020   
+--  File created - pi¹tek-maja-22-2020   
 --------------------------------------------------------
-DROP SEQUENCE "PK"."KONTO_SEQ";
-DROP TABLE "PK"."AUTORZY";
-DROP TABLE "PK"."BUDYNEK";
-DROP TABLE "PK"."GRUPA_STUDENTOW";
-DROP TABLE "PK"."KONTO";
-DROP TABLE "PK"."LOGIN";
-DROP TABLE "PK"."PUBLIKACJA";
-DROP TABLE "PK"."SALA";
-DROP TABLE "PK"."STATUS_TASKA";
-DROP TABLE "PK"."TASK";
-DROP TABLE "PK"."TYP_KONTA";
-DROP TABLE "PK"."WAGA_ZADANIA";
-DROP TABLE "PK"."ZADANIE";
-DROP TABLE "PK"."ZAJECIE";
+--------------------------------------------------------
+--  DDL for Sequence COUNTER_EMP
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "HR"."COUNTER_EMP"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+--------------------------------------------------------
+--  DDL for Sequence DEPARTMENTS_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "HR"."DEPARTMENTS_SEQ"  MINVALUE 1 MAXVALUE 9990 INCREMENT BY 10 START WITH 280 NOCACHE  NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+--------------------------------------------------------
+--  DDL for Sequence EMPLOYEES_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "HR"."EMPLOYEES_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 207 NOCACHE  NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+--------------------------------------------------------
+--  DDL for Sequence EMP_SEQ_INC
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "HR"."EMP_SEQ_INC"  MINVALUE 1 MAXVALUE 999999 INCREMENT BY 1 START WITH 210 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Sequence KONTO_SEQ
 --------------------------------------------------------
 
-   CREATE SEQUENCE  "PK"."KONTO_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+   CREATE SEQUENCE  "HR"."KONTO_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
+--------------------------------------------------------
+--  DDL for Sequence LOCATIONS_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "HR"."LOCATIONS_SEQ"  MINVALUE 1 MAXVALUE 9900 INCREMENT BY 100 START WITH 3300 NOCACHE  NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Table AUTORZY
 --------------------------------------------------------
 
-  CREATE TABLE "PK"."AUTORZY" 
-   (	"ID_AUTORA" NUMBER(3,0), 
+  CREATE TABLE "HR"."AUTORZY" 
+   (	"ID_PUBLIKACJI" NUMBER(3,0), 
 	"ID_KONTA" NUMBER(3,0)
-   ) SEGMENT CREATION DEFERRED 
+   ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Table BUDYNEK
 --------------------------------------------------------
 
-  CREATE TABLE "PK"."BUDYNEK" 
+  CREATE TABLE "HR"."BUDYNEK" 
    (	"ID_BUDYNKU" NUMBER(5,0), 
 	"NAZWA_BUDYNKU" VARCHAR2(10 BYTE)
    ) SEGMENT CREATION DEFERRED 
@@ -46,7 +60,7 @@ DROP TABLE "PK"."ZAJECIE";
 --  DDL for Table GRUPA_STUDENTOW
 --------------------------------------------------------
 
-  CREATE TABLE "PK"."GRUPA_STUDENTOW" 
+  CREATE TABLE "HR"."GRUPA_STUDENTOW" 
    (	"ID_GRUPY" NUMBER(5,0), 
 	"ILOSC_OSOB" NUMBER(5,0), 
 	"SPECJALIZACJA" VARCHAR2(10 BYTE)
@@ -58,7 +72,7 @@ DROP TABLE "PK"."ZAJECIE";
 --  DDL for Table KONTO
 --------------------------------------------------------
 
-  CREATE TABLE "PK"."KONTO" 
+  CREATE TABLE "HR"."KONTO" 
    (	"ID_KONTA" NUMBER(3,0), 
 	"TYTUL" VARCHAR2(50 BYTE), 
 	"IMIE" VARCHAR2(20 BYTE), 
@@ -77,7 +91,7 @@ DROP TABLE "PK"."ZAJECIE";
 --  DDL for Table LOGIN
 --------------------------------------------------------
 
-  CREATE TABLE "PK"."LOGIN" 
+  CREATE TABLE "HR"."LOGIN" 
    (	"ID_KONTA" NUMBER(5,0), 
 	"LOGIN" VARCHAR2(25 BYTE), 
 	"HASLO" VARCHAR2(24 BYTE)
@@ -92,22 +106,25 @@ DROP TABLE "PK"."ZAJECIE";
 --  DDL for Table PUBLIKACJA
 --------------------------------------------------------
 
-  CREATE TABLE "PK"."PUBLIKACJA" 
+  CREATE TABLE "HR"."PUBLIKACJA" 
    (	"ID_PUBLIKACJI" NUMBER(4,0), 
 	"ID_AUTORA" NUMBER(3,0), 
 	"TYTUL_PUBLIKACJI" VARCHAR2(100 BYTE), 
 	"DATA_PUBLIKACJI" DATE, 
 	"ISBN" NUMBER(13,0), 
-	"MIESJCE_WYSTAPIENIA" VARCHAR2(100 BYTE)
-   ) SEGMENT CREATION DEFERRED 
+	"MIEJSCE_WYSTAPIENIA" VARCHAR2(100 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Table SALA
 --------------------------------------------------------
 
-  CREATE TABLE "PK"."SALA" 
+  CREATE TABLE "HR"."SALA" 
    (	"ID_SALI" NUMBER(5,0), 
 	"ID_BUDYNKU" NUMBER(5,0), 
 	"NR_SALI" NUMBER(5,0), 
@@ -122,7 +139,7 @@ DROP TABLE "PK"."ZAJECIE";
 --  DDL for Table STATUS_TASKA
 --------------------------------------------------------
 
-  CREATE TABLE "PK"."STATUS_TASKA" 
+  CREATE TABLE "HR"."STATUS_TASKA" 
    (	"ID_STATUSU_TASKA" NUMBER(2,0), 
 	"NAZWA_STATUSU" VARCHAR2(20 BYTE)
    ) SEGMENT CREATION DEFERRED 
@@ -133,7 +150,7 @@ DROP TABLE "PK"."ZAJECIE";
 --  DDL for Table TASK
 --------------------------------------------------------
 
-  CREATE TABLE "PK"."TASK" 
+  CREATE TABLE "HR"."TASK" 
    (	"ID_TASKA" NUMBER(6,0), 
 	"DATA_UTWORZENIA" DATE, 
 	"CZAS_REALIZACJI" DATE, 
@@ -148,18 +165,21 @@ DROP TABLE "PK"."ZAJECIE";
 --  DDL for Table TYP_KONTA
 --------------------------------------------------------
 
-  CREATE TABLE "PK"."TYP_KONTA" 
+  CREATE TABLE "HR"."TYP_KONTA" 
    (	"ID_TYPU_KONTA" NUMBER(3,0), 
 	"NAZWA_TYPU_KONTA" VARCHAR2(10 BYTE)
-   ) SEGMENT CREATION DEFERRED 
+   ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Table WAGA_ZADANIA
 --------------------------------------------------------
 
-  CREATE TABLE "PK"."WAGA_ZADANIA" 
+  CREATE TABLE "HR"."WAGA_ZADANIA" 
    (	"ID_WAGI_ZADANIA" NUMBER(5,0), 
 	"WAGA" VARCHAR2(12 BYTE)
    ) SEGMENT CREATION DEFERRED 
@@ -170,7 +190,7 @@ DROP TABLE "PK"."ZAJECIE";
 --  DDL for Table ZADANIE
 --------------------------------------------------------
 
-  CREATE TABLE "PK"."ZADANIE" 
+  CREATE TABLE "HR"."ZADANIE" 
    (	"ID_ZADANIA" NUMBER(6,0), 
 	"ID_KONTA" NUMBER(3,0), 
 	"ID_TASKA" NUMBER(6,0), 
@@ -183,7 +203,7 @@ DROP TABLE "PK"."ZAJECIE";
 --  DDL for Table ZAJECIE
 --------------------------------------------------------
 
-  CREATE TABLE "PK"."ZAJECIE" 
+  CREATE TABLE "HR"."ZAJECIE" 
    (	"ID_ZAJECIA" NUMBER(5,0), 
 	"ID_GRUPY" NUMBER(5,0), 
 	"ID_KONTA" NUMBER(5,0), 
@@ -197,78 +217,139 @@ DROP TABLE "PK"."ZAJECIE";
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
   TABLESPACE "USERS" ;
-REM INSERTING into PK.AUTORZY
-SET DEFINE OFF;
-REM INSERTING into PK.BUDYNEK
-SET DEFINE OFF;
-REM INSERTING into PK.GRUPA_STUDENTOW
-SET DEFINE OFF;
-REM INSERTING into PK.KONTO
-SET DEFINE OFF;
-Insert into PK.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('1','dr.hab.mgr.inz','Adam','Spec','1','Informatyka',null);
-Insert into PK.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('2','dr.','Maciej','Nowak','2','Elektryk',null);
-Insert into PK.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('3','mgr.inz','Marcin','Kowalski','2','Mechatronik',null);
-Insert into PK.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('4','dr.','Adam','Maysz','3','Fizyka',null);
-Insert into PK.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('7','dr.','Boguslaw','Linda','2','Automatyka i Robotyka',null);
-Insert into PK.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('6','mgr.inz','Hubert','Pietrzak','3','Informatyka',null);
-Insert into PK.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('5','dr.hab.','Robert','Kubica','3','Mechanika',null);
-Insert into PK.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('8','mgr.inz','Patryk','Vega','2','Informatyka',null);
-Insert into PK.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('9','dr.hab.mgr.inz','Justyna','Kowalczyk','2','Budowa Maszyn',null);
-Insert into PK.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('10','mgr.inz','Krystyna','Czubówna','3','Bio-technologie',null);
-REM INSERTING into PK.LOGIN
-SET DEFINE OFF;
-Insert into PK.LOGIN (ID_KONTA,LOGIN,HASLO) values ('1','111111@edu.p.lodz.pl','pk12345!');
-Insert into PK.LOGIN (ID_KONTA,LOGIN,HASLO) values ('2','111112@edu.p.lodz.pl','pk12345!');
-Insert into PK.LOGIN (ID_KONTA,LOGIN,HASLO) values ('3','111113@edu.p.lodz.pl','pk12345!');
-Insert into PK.LOGIN (ID_KONTA,LOGIN,HASLO) values ('4','111114@edu.p.lodz.pl','pk12345!');
-Insert into PK.LOGIN (ID_KONTA,LOGIN,HASLO) values ('5','111115@edu.p.lodz.pl','pk12345!');
-Insert into PK.LOGIN (ID_KONTA,LOGIN,HASLO) values ('6','111116@edu.p.lodz.pl','pk12345!');
-Insert into PK.LOGIN (ID_KONTA,LOGIN,HASLO) values ('7','111117@edu.p.lodz.pl','pk12345!');
-Insert into PK.LOGIN (ID_KONTA,LOGIN,HASLO) values ('8','111118@edu.p.lodz.pl','pk12345!');
-Insert into PK.LOGIN (ID_KONTA,LOGIN,HASLO) values ('9','111119@edu.p.lodz.pl','pk12345!');
-Insert into PK.LOGIN (ID_KONTA,LOGIN,HASLO) values ('10','111110@edu.p.lodz.pl','pk12345!');
-REM INSERTING into PK.PUBLIKACJA
-SET DEFINE OFF;
-REM INSERTING into PK.SALA
-SET DEFINE OFF;
-REM INSERTING into PK.STATUS_TASKA
-SET DEFINE OFF;
-REM INSERTING into PK.TASK
-SET DEFINE OFF;
-REM INSERTING into PK.TYP_KONTA
-SET DEFINE OFF;
-REM INSERTING into PK.WAGA_ZADANIA
-SET DEFINE OFF;
-REM INSERTING into PK.ZADANIE
-SET DEFINE OFF;
-REM INSERTING into PK.ZAJECIE
-SET DEFINE OFF;
 --------------------------------------------------------
---  DDL for Index AUTORZY_PK
+--  DDL for View EMP_DEP
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "PK"."AUTORZY_PK" ON "PK"."AUTORZY" ("ID_AUTORA") 
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS" ;
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."EMP_DEP" ("EMPLOYEE_ID", "FIRST_NAME", "LAST_NAME", "DEPARTMENT_NAME") AS 
+  SELECT e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, d.DEPARTMENT_NAME
+FROM EMPLOYEES e, DEPARTMENTS d
+WHERE e.DEPARTMENT_ID = d.DEPARTMENT_ID
+;
+--------------------------------------------------------
+--  DDL for View EMP_DEP_VIEW
+--------------------------------------------------------
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."EMP_DEP_VIEW" ("EMPLOYEE_ID", "LAST_NAME", "FIRST_NAME", "DEPARTMENT_NAME") AS 
+  SELECT e.EMPLOYEE_ID, e.LAST_NAME, e.FIRST_NAME, d.DEPARTMENT_NAME
+FROM EMPLOYEES e
+INNER JOIN DEPARTMENTS d
+ON e.department_id=d.department_id
+;
+--------------------------------------------------------
+--  DDL for View EMP_DETAILS_VIEW
+--------------------------------------------------------
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."EMP_DETAILS_VIEW" ("EMPLOYEE_ID", "JOB_ID", "MANAGER_ID", "DEPARTMENT_ID", "LOCATION_ID", "COUNTRY_ID", "FIRST_NAME", "LAST_NAME", "SALARY", "COMMISSION_PCT", "DEPARTMENT_NAME", "JOB_TITLE", "CITY", "STATE_PROVINCE", "COUNTRY_NAME", "REGION_NAME") AS 
+  SELECT
+  e.employee_id,
+  e.job_id,
+  e.manager_id,
+  e.department_id,
+  d.location_id,
+  l.country_id,
+  e.first_name,
+  e.last_name,
+  e.salary,
+  e.commission_pct,
+  d.department_name,
+  j.job_title,
+  l.city,
+  l.state_province,
+  c.country_name,
+  r.region_name
+FROM
+  employees e,
+  departments d,
+  jobs j,
+  locations l,
+  countries c,
+  regions r
+WHERE e.department_id = d.department_id
+  AND d.location_id = l.location_id
+  AND l.country_id = c.country_id
+  AND c.region_id = r.region_id
+  AND j.job_id = e.job_id
+WITH READ ONLY
+;
+--------------------------------------------------------
+--  DDL for View SALARY_ZERO_VIEW
+--------------------------------------------------------
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."SALARY_ZERO_VIEW" ("SALARY") AS 
+  SELECT e.SALARY
+FROM EMPLOYEES e
+;
+REM INSERTING into HR.AUTORZY
+SET DEFINE OFF;
+Insert into HR.AUTORZY (ID_PUBLIKACJI,ID_KONTA) values ('1','1');
+REM INSERTING into HR.BUDYNEK
+SET DEFINE OFF;
+REM INSERTING into HR.GRUPA_STUDENTOW
+SET DEFINE OFF;
+REM INSERTING into HR.KONTO
+SET DEFINE OFF;
+Insert into HR.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('1','dr.hab.mgr.inz','Adam','Spec','1','Informatyka',null);
+Insert into HR.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('2','dr.','Maciej','Nowak','2','Elektryk',null);
+Insert into HR.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('3','mgr.inz','Marcin','Kowalski','2','Mechatronik',null);
+Insert into HR.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('4','dr.','Adam','Maysz','3','Fizyka',null);
+Insert into HR.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('7','dr.','Boguslaw','Linda','2','Automatyka i Robotyka',null);
+Insert into HR.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('6','mgr.inz','Hubert','Pietrzak','3','Informatyka',null);
+Insert into HR.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('5','dr.hab.','Robert','Kubica','3','Mechanika',null);
+Insert into HR.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('8','mgr.inz','Patryk','Vega','2','Informatyka',null);
+Insert into HR.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('9','dr.hab.mgr.inz','Justyna','Kowalczyk','2','Budowa Maszyn',null);
+Insert into HR.KONTO (ID_KONTA,TYTUL,IMIE,NAZWISKO,ID_TYPU_KONTA,SPECJALIZACJA,IMAGE) values ('10','mgr.inz','Krystyna','Czubówna','3','Bio-technologie',null);
+REM INSERTING into HR.LOGIN
+SET DEFINE OFF;
+Insert into HR.LOGIN (ID_KONTA,LOGIN,HASLO) values ('1','111111@edu.p.lodz.pl','pk12345!');
+Insert into HR.LOGIN (ID_KONTA,LOGIN,HASLO) values ('2','111112@edu.p.lodz.pl','pk12345!');
+Insert into HR.LOGIN (ID_KONTA,LOGIN,HASLO) values ('3','111113@edu.p.lodz.pl','pk12345!');
+Insert into HR.LOGIN (ID_KONTA,LOGIN,HASLO) values ('4','111114@edu.p.lodz.pl','pk12345!');
+Insert into HR.LOGIN (ID_KONTA,LOGIN,HASLO) values ('5','111115@edu.p.lodz.pl','pk12345!');
+Insert into HR.LOGIN (ID_KONTA,LOGIN,HASLO) values ('6','111116@edu.p.lodz.pl','pk12345!');
+Insert into HR.LOGIN (ID_KONTA,LOGIN,HASLO) values ('7','111117@edu.p.lodz.pl','pk12345!');
+Insert into HR.LOGIN (ID_KONTA,LOGIN,HASLO) values ('8','111118@edu.p.lodz.pl','pk12345!');
+Insert into HR.LOGIN (ID_KONTA,LOGIN,HASLO) values ('9','111119@edu.p.lodz.pl','pk12345!');
+Insert into HR.LOGIN (ID_KONTA,LOGIN,HASLO) values ('10','111110@edu.p.lodz.pl','pk12345!');
+REM INSERTING into HR.PUBLIKACJA
+SET DEFINE OFF;
+Insert into HR.PUBLIKACJA (ID_PUBLIKACJI,ID_AUTORA,TYTUL_PUBLIKACJI,DATA_PUBLIKACJI,ISBN,MIEJSCE_WYSTAPIENIA) values ('1','1','Jak jeœæ chleb',to_date('12/12/12','RR/MM/DD'),'111111111111','Œwierszczyk');
+REM INSERTING into HR.SALA
+SET DEFINE OFF;
+REM INSERTING into HR.STATUS_TASKA
+SET DEFINE OFF;
+REM INSERTING into HR.TASK
+SET DEFINE OFF;
+REM INSERTING into HR.TYP_KONTA
+SET DEFINE OFF;
+Insert into HR.TYP_KONTA (ID_TYPU_KONTA,NAZWA_TYPU_KONTA) values ('1','admin');
+Insert into HR.TYP_KONTA (ID_TYPU_KONTA,NAZWA_TYPU_KONTA) values ('2','dziekan');
+Insert into HR.TYP_KONTA (ID_TYPU_KONTA,NAZWA_TYPU_KONTA) values ('3','wykladowca');
+REM INSERTING into HR.WAGA_ZADANIA
+SET DEFINE OFF;
+REM INSERTING into HR.ZADANIE
+SET DEFINE OFF;
+REM INSERTING into HR.ZAJECIE
+SET DEFINE OFF;
 --------------------------------------------------------
 --  DDL for Index ID_BUDYNKU_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "PK"."ID_BUDYNKU_PK" ON "PK"."BUDYNEK" ("ID_BUDYNKU") 
+  CREATE UNIQUE INDEX "HR"."ID_BUDYNKU_PK" ON "HR"."BUDYNEK" ("ID_BUDYNKU") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index ID_GRUPY_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "PK"."ID_GRUPY_PK" ON "PK"."GRUPA_STUDENTOW" ("ID_GRUPY") 
+  CREATE UNIQUE INDEX "HR"."ID_GRUPY_PK" ON "HR"."GRUPA_STUDENTOW" ("ID_GRUPY") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index ID_KONTA_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "PK"."ID_KONTA_PK" ON "PK"."LOGIN" ("ID_KONTA") 
+  CREATE UNIQUE INDEX "HR"."ID_KONTA_PK" ON "HR"."LOGIN" ("ID_KONTA") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
@@ -278,21 +359,21 @@ SET DEFINE OFF;
 --  DDL for Index ID_SALI_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "PK"."ID_SALI_PK" ON "PK"."SALA" ("ID_SALI") 
+  CREATE UNIQUE INDEX "HR"."ID_SALI_PK" ON "HR"."SALA" ("ID_SALI") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index ID_ZAJECIE_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "PK"."ID_ZAJECIE_PK" ON "PK"."ZAJECIE" ("ID_ZAJECIA") 
+  CREATE UNIQUE INDEX "HR"."ID_ZAJECIE_PK" ON "HR"."ZAJECIE" ("ID_ZAJECIA") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index KONTO_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "PK"."KONTO_PK" ON "PK"."KONTO" ("ID_KONTA") 
+  CREATE UNIQUE INDEX "HR"."KONTO_PK" ON "HR"."KONTO" ("ID_KONTA") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
@@ -302,49 +383,55 @@ SET DEFINE OFF;
 --  DDL for Index PUBLIKACJA_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "PK"."PUBLIKACJA_PK" ON "PK"."PUBLIKACJA" ("ID_PUBLIKACJI") 
+  CREATE UNIQUE INDEX "HR"."PUBLIKACJA_PK" ON "HR"."PUBLIKACJA" ("ID_PUBLIKACJI") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index STATUS_TASKA_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "PK"."STATUS_TASKA_PK" ON "PK"."STATUS_TASKA" ("ID_STATUSU_TASKA") 
+  CREATE UNIQUE INDEX "HR"."STATUS_TASKA_PK" ON "HR"."STATUS_TASKA" ("ID_STATUSU_TASKA") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index TAKS_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "PK"."TAKS_PK" ON "PK"."TASK" ("ID_TASKA") 
+  CREATE UNIQUE INDEX "HR"."TAKS_PK" ON "HR"."TASK" ("ID_TASKA") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index TYP_KONTA_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "PK"."TYP_KONTA_PK" ON "PK"."TYP_KONTA" ("ID_TYPU_KONTA") 
+  CREATE UNIQUE INDEX "HR"."TYP_KONTA_PK" ON "HR"."TYP_KONTA" ("ID_TYPU_KONTA") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index WAGA_ZADANIA_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "PK"."WAGA_ZADANIA_PK" ON "PK"."WAGA_ZADANIA" ("ID_WAGI_ZADANIA") 
+  CREATE UNIQUE INDEX "HR"."WAGA_ZADANIA_PK" ON "HR"."WAGA_ZADANIA" ("ID_WAGI_ZADANIA") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Index ZADANIE_PK
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "PK"."ZADANIE_PK" ON "PK"."ZADANIE" ("ID_ZADANIA") 
+  CREATE UNIQUE INDEX "HR"."ZADANIE_PK" ON "HR"."ZADANIE" ("ID_ZADANIA") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
 --------------------------------------------------------
 --  DDL for Trigger KONTO_TRG
 --------------------------------------------------------
 
-  CREATE OR REPLACE NONEDITIONABLE TRIGGER "PK"."KONTO_TRG" 
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "HR"."KONTO_TRG" 
 BEFORE INSERT ON KONTO 
 FOR EACH ROW 
 BEGIN
@@ -355,153 +442,364 @@ BEGIN
     END IF;
   END COLUMN_SEQUENCES;
 END;
+
 /
-ALTER TRIGGER "PK"."KONTO_TRG" ENABLE;
+ALTER TRIGGER "HR"."KONTO_TRG" ENABLE;
 --------------------------------------------------------
---  Constraints for Table AUTORZY
---------------------------------------------------------
-
-  ALTER TABLE "PK"."AUTORZY" MODIFY ("ID_AUTORA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."AUTORZY" MODIFY ("ID_KONTA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."AUTORZY" ADD CONSTRAINT "AUTORZY_PK" PRIMARY KEY ("ID_AUTORA")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
---------------------------------------------------------
---  Constraints for Table BUDYNEK
+--  DDL for Trigger SALARY_ZERO
 --------------------------------------------------------
 
-  ALTER TABLE "PK"."BUDYNEK" MODIFY ("ID_BUDYNKU" NOT NULL ENABLE);
-  ALTER TABLE "PK"."BUDYNEK" MODIFY ("NAZWA_BUDYNKU" NOT NULL ENABLE);
-  ALTER TABLE "PK"."BUDYNEK" ADD CONSTRAINT "ID_BUDYNKU_PK" PRIMARY KEY ("ID_BUDYNKU")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
+  CREATE OR REPLACE EDITIONABLE TRIGGER "HR"."SALARY_ZERO" 
+INSTEAD OF INSERT OR UPDATE ON SALARY_ZERO_VIEW
+BEGIN
+    UPDATE EMPLOYEES SET
+        SALARY = 0
+    WHERE SALARY < 0;
+END;
+/
+ALTER TRIGGER "HR"."SALARY_ZERO" ENABLE;
 --------------------------------------------------------
---  Constraints for Table GRUPA_STUDENTOW
+--  DDL for Trigger TR_EMP_DEP
 --------------------------------------------------------
 
-  ALTER TABLE "PK"."GRUPA_STUDENTOW" MODIFY ("ID_GRUPY" NOT NULL ENABLE);
-  ALTER TABLE "PK"."GRUPA_STUDENTOW" MODIFY ("ILOSC_OSOB" NOT NULL ENABLE);
-  ALTER TABLE "PK"."GRUPA_STUDENTOW" MODIFY ("SPECJALIZACJA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."GRUPA_STUDENTOW" ADD CONSTRAINT "ID_GRUPY_PK" PRIMARY KEY ("ID_GRUPY")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
+  CREATE OR REPLACE EDITIONABLE TRIGGER "HR"."TR_EMP_DEP" 
+INSTEAD OF INSERT ON EMP_DEP
+BEGIN
+    INSERT INTO DEPARTMENTS SET
+        (d.DEPARTMENT_NAME, d.DEPARTMENT_ID) VALUES (NULL, NULL);
+END;
+/
+ALTER TRIGGER "HR"."TR_EMP_DEP" ENABLE;
+--------------------------------------------------------
+--  DDL for Procedure ADD_JOB_HISTORY
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "HR"."ADD_JOB_HISTORY" 
+  (  p_emp_id          job_history.employee_id%type
+   , p_start_date      job_history.start_date%type
+   , p_end_date        job_history.end_date%type
+   , p_job_id          job_history.job_id%type
+   , p_department_id   job_history.department_id%type
+   )
+IS
+BEGIN
+  INSERT INTO job_history (employee_id, start_date, end_date,
+                           job_id, department_id)
+    VALUES(p_emp_id, p_start_date, p_end_date, p_job_id, p_department_id);
+END add_job_history;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure GET_DEP_COUNT_2
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "HR"."GET_DEP_COUNT_2" 
+AS
+    JOB_NAME IN VARCHAR,
+    qty OUT NUMBER
+BEGIN
+SELECT COUNT(HR.DEPARTMENTS.DEPARTMENTS_ID)
+INTO qty
+FROM HR.DEPARTMENTS
+LEFT JOIN HR.EMPLOYEES
+ON HR.DEPARTMENTS.DEPARTMENT_ID = HR.EMPLOYEES.DEPARTMENT_ID
+WHERE HR.EMPLOYEES.DEPARTMENT_ID = JOB_NAME;
+ DBMS_OUTPUT.put_line(qty);
+END GET_DEP_COUNT_2;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure GET_EMP
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "HR"."GET_EMP" 
+(
+    EMP_ID IN NUMBER DEFAULT NULL
+) AS
+ last_name1 employees.last_name%TYPE;
+ first_name1 employees.first_name%TYPE;
+ salary1 employees.salary%TYPE;
+BEGIN
+    select last_name, first_name, salary 
+    into last_name1,first_name1, salary1
+    from employees where employee_id = EMP_ID;
+    DBMS_OUTPUT.put_line(last_name1||'-'||first_name1||'-'||salary1);
+EXCEPTION
+    WHEN OTHERS THEN DBMS_OUTPUT.put_line('brak pracownika o tym ID');
+END GET_EMP;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure GET_EMP_IN_DEP_JOB
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "HR"."GET_EMP_IN_DEP_JOB" 
+(
+ DEP_ID IN NUMBER DEFAULT NULL,
+ J_ID IN NUMBER DEFAULT NULL,
+ coun OUT NUMBER
+) AS
+BEGIN
+select COUNT(*) into coun
+from employees 
+where department_id = DEP_ID AND JOB_ID = J_ID;
+DBMS_OUTPUT.put_line(coun);
+EXCEPTION
+WHEN OTHERS THEN DBMS_OUTPUT.put_line('brak pracownika o tym dep ID');
+END GET_EMP_IN_DEP_JOB;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure GET_EMP_IN_DEP_NAME
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "HR"."GET_EMP_IN_DEP_NAME" 
+(
+    DEP_ID NUMBER DEFAULT NULL
+) IS
+type xx is RECORD
+(
+ last_name1 employees.last_name%TYPE,
+ first_name1 employees.first_name%TYPE
+ );
+type var is table of xx index by pls_integer;
+var1 var;
+BEGIN
+select last_name, first_name
+bulk collect into var1
+from employees where department_id = DEP_ID;
+for i in 1..var1.count
+loop
+DBMS_OUTPUT.put_line(var1(i).last_name1||'-'||var1(i).first_name1); 
+end loop;
+EXCEPTION
+WHEN OTHERS THEN DBMS_OUTPUT.put_line('brak pracownika o tym dep ID');
+END GET_EMP_IN_DEP_NAME;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure GET_EMPTY_DEP
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "HR"."GET_EMPTY_DEP" 
+AS
+    coun int;
+BEGIN
+    SELECT COUNT(departments.department_id) INTO coun FROM DEPARTMENTS 
+    LEFT JOIN EMPLOYEES
+    ON departments.department_id = employees.department_id
+    WHERE employees.department_id IS NULL;
+    DBMS_OUTPUT.put_line(coun);
+END;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure GET_JOB_COUNT
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "HR"."GET_JOB_COUNT" 
+(
+    JOB IN VARCHAR,
+    qty OUT NUMBER
+)
+AS 
+BEGIN
+SELECT COUNT(*)
+INTO qty
+FROM HR.EMPLOYEES
+INNER JOIN HR.JOBS
+ON HR.JOBS.JOB_ID = HR.EMPLOYEES.JOB_ID
+WHERE HR.JOBS.JOB_TITLE = JOB;
+ DBMS_OUTPUT.put_line(qty);
+END GET_JOB_COUNT;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure SECURE_DML
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "HR"."SECURE_DML" 
+IS
+BEGIN
+  IF TO_CHAR (SYSDATE, 'HH24:MI') NOT BETWEEN '08:00' AND '18:00'
+        OR TO_CHAR (SYSDATE, 'DY') IN ('SAT', 'SUN') THEN
+	RAISE_APPLICATION_ERROR (-20205,
+		'You may only make changes during normal office hours');
+  END IF;
+END secure_dml;
+
+/
+--------------------------------------------------------
+--  DDL for Function IF_POSITIVE
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE FUNCTION "HR"."IF_POSITIVE" 
+(
+    val IN DECIMAL
+)
+RETURN NUMBER AS 
+result NUMBER;
+BEGIN
+    IF val > 0 THEN
+        result := 1;
+    ELSE IF val < 0 THEN
+        result := -1;
+    ELSE
+        retult := 0;
+    END IF;
+    RETURN result;
+END IF_POSITIVE;
+
+/
+--------------------------------------------------------
+--  DDL for Function SIGN_CHECK
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE FUNCTION "HR"."SIGN_CHECK" 
+(
+    val IN DECIMAL
+)
+RETURN NUMBER AS 
+result NUMBER;
+BEGIN
+    IF val > 0 THEN
+        result := 1;
+    ELSE IF val < 0 THEN
+        result := -1;
+    ELSE
+        result := 0;
+    END IF;
+    END IF;
+    RETURN result;
+END SIGN_CHECK;
+
+/
 --------------------------------------------------------
 --  Constraints for Table KONTO
 --------------------------------------------------------
 
-  ALTER TABLE "PK"."KONTO" MODIFY ("ID_KONTA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."KONTO" MODIFY ("TYTUL" NOT NULL ENABLE);
-  ALTER TABLE "PK"."KONTO" MODIFY ("IMIE" NOT NULL ENABLE);
-  ALTER TABLE "PK"."KONTO" MODIFY ("NAZWISKO" NOT NULL ENABLE);
-  ALTER TABLE "PK"."KONTO" MODIFY ("ID_TYPU_KONTA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."KONTO" MODIFY ("SPECJALIZACJA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."KONTO" ADD CONSTRAINT "KONTO_PK" PRIMARY KEY ("ID_KONTA")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS"  ENABLE;
---------------------------------------------------------
---  Constraints for Table LOGIN
---------------------------------------------------------
-
-  ALTER TABLE "PK"."LOGIN" MODIFY ("ID_KONTA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."LOGIN" MODIFY ("LOGIN" NOT NULL ENABLE);
-  ALTER TABLE "PK"."LOGIN" MODIFY ("HASLO" NOT NULL ENABLE);
-  ALTER TABLE "PK"."LOGIN" ADD CONSTRAINT "ID_KONTA_PK" PRIMARY KEY ("ID_KONTA")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "HR"."KONTO" MODIFY ("ID_KONTA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."KONTO" MODIFY ("TYTUL" NOT NULL ENABLE);
+  ALTER TABLE "HR"."KONTO" MODIFY ("IMIE" NOT NULL ENABLE);
+  ALTER TABLE "HR"."KONTO" MODIFY ("NAZWISKO" NOT NULL ENABLE);
+  ALTER TABLE "HR"."KONTO" MODIFY ("ID_TYPU_KONTA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."KONTO" MODIFY ("SPECJALIZACJA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."KONTO" ADD CONSTRAINT "KONTO_PK" PRIMARY KEY ("ID_KONTA")
+  USING INDEX "HR"."KONTO_PK"  ENABLE;
 --------------------------------------------------------
 --  Constraints for Table PUBLIKACJA
 --------------------------------------------------------
 
-  ALTER TABLE "PK"."PUBLIKACJA" MODIFY ("ID_PUBLIKACJI" NOT NULL ENABLE);
-  ALTER TABLE "PK"."PUBLIKACJA" MODIFY ("ID_AUTORA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."PUBLIKACJA" MODIFY ("TYTUL_PUBLIKACJI" NOT NULL ENABLE);
-  ALTER TABLE "PK"."PUBLIKACJA" MODIFY ("DATA_PUBLIKACJI" NOT NULL ENABLE);
-  ALTER TABLE "PK"."PUBLIKACJA" MODIFY ("ISBN" NOT NULL ENABLE);
-  ALTER TABLE "PK"."PUBLIKACJA" MODIFY ("MIESJCE_WYSTAPIENIA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."PUBLIKACJA" ADD CONSTRAINT "PUBLIKACJA_PK" PRIMARY KEY ("ID_PUBLIKACJI")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
---------------------------------------------------------
---  Constraints for Table SALA
---------------------------------------------------------
-
-  ALTER TABLE "PK"."SALA" MODIFY ("ID_SALI" NOT NULL ENABLE);
-  ALTER TABLE "PK"."SALA" MODIFY ("ID_BUDYNKU" NOT NULL ENABLE);
-  ALTER TABLE "PK"."SALA" MODIFY ("NR_SALI" NOT NULL ENABLE);
-  ALTER TABLE "PK"."SALA" MODIFY ("TYP_SALI" NOT NULL ENABLE);
-  ALTER TABLE "PK"."SALA" MODIFY ("MAX_OS" NOT NULL ENABLE);
-  ALTER TABLE "PK"."SALA" MODIFY ("WYPOSAZENIE" NOT NULL ENABLE);
-  ALTER TABLE "PK"."SALA" ADD CONSTRAINT "ID_SALI_PK" PRIMARY KEY ("ID_SALI")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "HR"."PUBLIKACJA" MODIFY ("ID_PUBLIKACJI" NOT NULL ENABLE);
+  ALTER TABLE "HR"."PUBLIKACJA" MODIFY ("ID_AUTORA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."PUBLIKACJA" MODIFY ("TYTUL_PUBLIKACJI" NOT NULL ENABLE);
+  ALTER TABLE "HR"."PUBLIKACJA" MODIFY ("DATA_PUBLIKACJI" NOT NULL ENABLE);
+  ALTER TABLE "HR"."PUBLIKACJA" MODIFY ("ISBN" NOT NULL ENABLE);
+  ALTER TABLE "HR"."PUBLIKACJA" MODIFY ("MIEJSCE_WYSTAPIENIA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."PUBLIKACJA" ADD CONSTRAINT "PUBLIKACJA_PK" PRIMARY KEY ("ID_PUBLIKACJI")
+  USING INDEX "HR"."PUBLIKACJA_PK"  ENABLE;
 --------------------------------------------------------
 --  Constraints for Table STATUS_TASKA
 --------------------------------------------------------
 
-  ALTER TABLE "PK"."STATUS_TASKA" MODIFY ("ID_STATUSU_TASKA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."STATUS_TASKA" MODIFY ("NAZWA_STATUSU" NOT NULL ENABLE);
-  ALTER TABLE "PK"."STATUS_TASKA" ADD CONSTRAINT "STATUS_TASKA_PK" PRIMARY KEY ("ID_STATUSU_TASKA")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "HR"."STATUS_TASKA" MODIFY ("ID_STATUSU_TASKA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."STATUS_TASKA" MODIFY ("NAZWA_STATUSU" NOT NULL ENABLE);
+  ALTER TABLE "HR"."STATUS_TASKA" ADD CONSTRAINT "STATUS_TASKA_PK" PRIMARY KEY ("ID_STATUSU_TASKA")
+  USING INDEX "HR"."STATUS_TASKA_PK"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table SALA
+--------------------------------------------------------
+
+  ALTER TABLE "HR"."SALA" MODIFY ("ID_SALI" NOT NULL ENABLE);
+  ALTER TABLE "HR"."SALA" MODIFY ("ID_BUDYNKU" NOT NULL ENABLE);
+  ALTER TABLE "HR"."SALA" MODIFY ("NR_SALI" NOT NULL ENABLE);
+  ALTER TABLE "HR"."SALA" MODIFY ("TYP_SALI" NOT NULL ENABLE);
+  ALTER TABLE "HR"."SALA" MODIFY ("MAX_OS" NOT NULL ENABLE);
+  ALTER TABLE "HR"."SALA" MODIFY ("WYPOSAZENIE" NOT NULL ENABLE);
+  ALTER TABLE "HR"."SALA" ADD CONSTRAINT "ID_SALI_PK" PRIMARY KEY ("ID_SALI")
+  USING INDEX "HR"."ID_SALI_PK"  ENABLE;
 --------------------------------------------------------
 --  Constraints for Table TASK
 --------------------------------------------------------
 
-  ALTER TABLE "PK"."TASK" MODIFY ("ID_TASKA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."TASK" MODIFY ("DATA_UTWORZENIA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."TASK" MODIFY ("CZAS_REALIZACJI" NOT NULL ENABLE);
-  ALTER TABLE "PK"."TASK" MODIFY ("TYTUL_TASKA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."TASK" MODIFY ("ID_STATUSU_TASKA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."TASK" ADD CONSTRAINT "TAKS_PK" PRIMARY KEY ("ID_TASKA")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
---------------------------------------------------------
---  Constraints for Table TYP_KONTA
---------------------------------------------------------
-
-  ALTER TABLE "PK"."TYP_KONTA" MODIFY ("ID_TYPU_KONTA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."TYP_KONTA" MODIFY ("NAZWA_TYPU_KONTA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."TYP_KONTA" ADD CONSTRAINT "TYP_KONTA_PK" PRIMARY KEY ("ID_TYPU_KONTA")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
---------------------------------------------------------
---  Constraints for Table WAGA_ZADANIA
---------------------------------------------------------
-
-  ALTER TABLE "PK"."WAGA_ZADANIA" MODIFY ("ID_WAGI_ZADANIA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."WAGA_ZADANIA" MODIFY ("WAGA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."WAGA_ZADANIA" ADD CONSTRAINT "WAGA_ZADANIA_PK" PRIMARY KEY ("ID_WAGI_ZADANIA")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "HR"."TASK" MODIFY ("ID_TASKA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."TASK" MODIFY ("DATA_UTWORZENIA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."TASK" MODIFY ("CZAS_REALIZACJI" NOT NULL ENABLE);
+  ALTER TABLE "HR"."TASK" MODIFY ("TYTUL_TASKA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."TASK" MODIFY ("ID_STATUSU_TASKA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."TASK" ADD CONSTRAINT "TAKS_PK" PRIMARY KEY ("ID_TASKA")
+  USING INDEX "HR"."TAKS_PK"  ENABLE;
 --------------------------------------------------------
 --  Constraints for Table ZADANIE
 --------------------------------------------------------
 
-  ALTER TABLE "PK"."ZADANIE" MODIFY ("ID_ZADANIA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."ZADANIE" MODIFY ("ID_KONTA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."ZADANIE" MODIFY ("ID_TASKA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."ZADANIE" ADD CONSTRAINT "ZADANIE_PK" PRIMARY KEY ("ID_ZADANIA")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
+  ALTER TABLE "HR"."ZADANIE" MODIFY ("ID_ZADANIA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."ZADANIE" MODIFY ("ID_KONTA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."ZADANIE" MODIFY ("ID_TASKA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."ZADANIE" ADD CONSTRAINT "ZADANIE_PK" PRIMARY KEY ("ID_ZADANIA")
+  USING INDEX "HR"."ZADANIE_PK"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table TYP_KONTA
+--------------------------------------------------------
+
+  ALTER TABLE "HR"."TYP_KONTA" MODIFY ("ID_TYPU_KONTA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."TYP_KONTA" MODIFY ("NAZWA_TYPU_KONTA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."TYP_KONTA" ADD CONSTRAINT "TYP_KONTA_PK" PRIMARY KEY ("ID_TYPU_KONTA")
+  USING INDEX "HR"."TYP_KONTA_PK"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table WAGA_ZADANIA
+--------------------------------------------------------
+
+  ALTER TABLE "HR"."WAGA_ZADANIA" MODIFY ("ID_WAGI_ZADANIA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."WAGA_ZADANIA" MODIFY ("WAGA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."WAGA_ZADANIA" ADD CONSTRAINT "WAGA_ZADANIA_PK" PRIMARY KEY ("ID_WAGI_ZADANIA")
+  USING INDEX "HR"."WAGA_ZADANIA_PK"  ENABLE;
 --------------------------------------------------------
 --  Constraints for Table ZAJECIE
 --------------------------------------------------------
 
-  ALTER TABLE "PK"."ZAJECIE" MODIFY ("ID_ZAJECIA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."ZAJECIE" MODIFY ("ID_GRUPY" NOT NULL ENABLE);
-  ALTER TABLE "PK"."ZAJECIE" MODIFY ("ID_KONTA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."ZAJECIE" MODIFY ("ID_SALI" NOT NULL ENABLE);
-  ALTER TABLE "PK"."ZAJECIE" MODIFY ("SPECJALIZACJA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."ZAJECIE" MODIFY ("LICZBA_GODZIN" NOT NULL ENABLE);
-  ALTER TABLE "PK"."ZAJECIE" MODIFY ("DZIEN_TYGODNIA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."ZAJECIE" MODIFY ("GODZINA_ROZPOCZECIA" NOT NULL ENABLE);
-  ALTER TABLE "PK"."ZAJECIE" ADD CONSTRAINT "ID_ZAJECIE_PK" PRIMARY KEY ("ID_ZAJECIA")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
-  TABLESPACE "USERS"  ENABLE;
-  ALTER TABLE "PK"."ZAJECIE" MODIFY ("WYPOSAZENIE" NOT NULL ENABLE);
+  ALTER TABLE "HR"."ZAJECIE" MODIFY ("ID_ZAJECIA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."ZAJECIE" MODIFY ("ID_GRUPY" NOT NULL ENABLE);
+  ALTER TABLE "HR"."ZAJECIE" MODIFY ("ID_KONTA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."ZAJECIE" MODIFY ("ID_SALI" NOT NULL ENABLE);
+  ALTER TABLE "HR"."ZAJECIE" MODIFY ("SPECJALIZACJA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."ZAJECIE" MODIFY ("LICZBA_GODZIN" NOT NULL ENABLE);
+  ALTER TABLE "HR"."ZAJECIE" MODIFY ("DZIEN_TYGODNIA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."ZAJECIE" MODIFY ("GODZINA_ROZPOCZECIA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."ZAJECIE" ADD CONSTRAINT "ID_ZAJECIE_PK" PRIMARY KEY ("ID_ZAJECIA")
+  USING INDEX "HR"."ID_ZAJECIE_PK"  ENABLE;
+  ALTER TABLE "HR"."ZAJECIE" MODIFY ("WYPOSAZENIE" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table GRUPA_STUDENTOW
+--------------------------------------------------------
+
+  ALTER TABLE "HR"."GRUPA_STUDENTOW" MODIFY ("ID_GRUPY" NOT NULL ENABLE);
+  ALTER TABLE "HR"."GRUPA_STUDENTOW" MODIFY ("ILOSC_OSOB" NOT NULL ENABLE);
+  ALTER TABLE "HR"."GRUPA_STUDENTOW" MODIFY ("SPECJALIZACJA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."GRUPA_STUDENTOW" ADD CONSTRAINT "ID_GRUPY_PK" PRIMARY KEY ("ID_GRUPY")
+  USING INDEX "HR"."ID_GRUPY_PK"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table BUDYNEK
+--------------------------------------------------------
+
+  ALTER TABLE "HR"."BUDYNEK" MODIFY ("ID_BUDYNKU" NOT NULL ENABLE);
+  ALTER TABLE "HR"."BUDYNEK" MODIFY ("NAZWA_BUDYNKU" NOT NULL ENABLE);
+  ALTER TABLE "HR"."BUDYNEK" ADD CONSTRAINT "ID_BUDYNKU_PK" PRIMARY KEY ("ID_BUDYNKU")
+  USING INDEX "HR"."ID_BUDYNKU_PK"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table LOGIN
+--------------------------------------------------------
+
+  ALTER TABLE "HR"."LOGIN" MODIFY ("ID_KONTA" NOT NULL ENABLE);
+  ALTER TABLE "HR"."LOGIN" MODIFY ("LOGIN" NOT NULL ENABLE);
+  ALTER TABLE "HR"."LOGIN" MODIFY ("HASLO" NOT NULL ENABLE);
+  ALTER TABLE "HR"."LOGIN" ADD CONSTRAINT "ID_KONTA_PK" PRIMARY KEY ("ID_KONTA")
+  USING INDEX "HR"."ID_KONTA_PK"  ENABLE;
