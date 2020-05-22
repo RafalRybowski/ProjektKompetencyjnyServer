@@ -15,10 +15,10 @@ router.route('/employees/:id?')
 router.route('/publications/:idAccount?')
 	.get(mock.publications);
 
-router.route('/login/:login?:pswrd?')
+router.route('/login')
 	.post(login.post);
 	
-router.route('/profile/:req')
+router.route('/profile')
 	.get(profile.get);
 
 module.exports = router;

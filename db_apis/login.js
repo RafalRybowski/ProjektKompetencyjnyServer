@@ -6,15 +6,22 @@ async function find(context){
     const binds = {};
     
     
-    if(context.login && context.pswrd){
+    if(context.login && context.password){
             binds.Login = context.login;
-            binds.PsWrd = context.pswrd;
-            query += `where Login.Login = :Login
+			console.log('binds.login = '+binds.Login);
+			binds.LoginEmail = binds.Login + `@edu.p.lodz.pl`
+			console.log('binds.LoginEmail = '+binds.LoginEmail);
+            binds.PsWrd = context.password;
+			console.log('binds.PsWrd = '+binds.PsWrd);
+            query += `where (Login.Login = :Login OR Login.Login = :LoginEmail)
             AND Login.Haslo = :PsWrd`;
         }
         
     const result = await database.simpleExecute(query, binds);
-    return result.rows[0].ID_KONTA;
+	if(result.rows[0] == null){
+		return -1;
+	}
+    return result.rows[0];
 }
 
 module.exports.find = find;
