@@ -12,6 +12,7 @@ function initialize() {
     httpServer = http.createServer(app);
 
     // Combines logging info from request and response
+    app.use(express.static("image"));
     app.use(bodyParser.urlencoded({ extended: true }))
     app.use(bodyParser.json())
 

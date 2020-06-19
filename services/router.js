@@ -19,10 +19,10 @@ router.route('/publications/:idAccount?')
 router.route('/login')
 	.post(login.post);
 	
-router.route('/profile')
+router.route('/profile/:id')
 	.get(profile.get);
 	
-router.route('/publications')
-	.get(publications.get);
+// router.route('/publications')
+// 	.get(publications.get);
 
 module.exports = router;

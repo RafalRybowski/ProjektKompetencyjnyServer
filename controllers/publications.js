@@ -13,7 +13,8 @@ async function get(req, res, next){
 			}
 			const rowProfile = rows[0];
 			const rowsPub = await profilePub.find(req);
-			if (rowsPub){
+			console.log(rowProfile)
+			if (rowProfile){
 				let obj = {rowProfile, rowsPub};
 				res.status(200).json(obj);
 			}

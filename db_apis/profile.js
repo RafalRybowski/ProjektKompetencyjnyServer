@@ -8,9 +8,8 @@ function toLower(string){
 async function find(req){
     let query = baseQuery;
     const binds = {};
-	console.log('profile db_apis context = '+Object.values(req.session.ID_KONTA)[0]);
-    if(req.session.ID_KONTA){
-			binds.Login = Object.values(req.session.ID_KONTA)[0];
+    if(req.params.id){
+			binds.Login = req.params.id;
 			console.log('binds db_apis context = '+binds.Login);
             query += `KONTO.ID_KONTA = :Login`; 
         }
@@ -22,4 +21,4 @@ async function find(req){
     return result.rows;
 }
 
-module.exports.find = find;
+module.exports.find = find; 
