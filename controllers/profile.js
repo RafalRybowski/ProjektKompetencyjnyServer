@@ -18,7 +18,8 @@ async function get(req, res, next){
 				res.status(200).json(obj);
 			}
 			else{
-				res.status(404).end();
+				let obj = {rowProfile};
+				res.status(200).json(obj);
 			}
 		}
 		else{
