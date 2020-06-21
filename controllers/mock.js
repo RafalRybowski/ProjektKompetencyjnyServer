@@ -17,7 +17,7 @@ async function publications(req, res, next) {
       {
     'idPublication': 1,
     'idAuthor': 1,
-    'tile': 'tytul1',
+    'title': 'tytul1',
     'date': 'imie1',
     'ISBN': 'nazwisko1',
     'place': 'pozycja1',
@@ -25,7 +25,7 @@ async function publications(req, res, next) {
   {
     'idPublication': 2,
     'idAuthor': 1,
-    'tile': 'tytul2',
+    'title': 'tytul2',
     'date': 'imie2',
     'ISBN': 'nazwisko2',
     'place': 'pozycja2',
@@ -33,7 +33,7 @@ async function publications(req, res, next) {
   {
     'idPublication': 3,
     'idAuthor': 1,
-    'tile': 'tytul3',
+    'title': 'tytul3',
     'date': 'imie3',
     'ISBN': 'nazwisko3',
     'place': 'pozycja3',
@@ -41,7 +41,7 @@ async function publications(req, res, next) {
   {
     'idPublication': 4,
     'idAuthor': 1,
-    'tile': 'tytul4',
+    'title': 'tytul4',
     'date': 'imie4',
     'ISBN': 'nazwisko4',
     'place': 'pozycja4',
